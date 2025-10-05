@@ -4,7 +4,7 @@ const User = require('./models/user');
 
 // express app
 const app = express();
-
+const PORT = process.env.PORT || 3000;
 // connect to mongodb & listen for requests
 //const dbURI = "paste here your mongodb uri that can be get form connect button";
 
@@ -17,17 +17,19 @@ const app = express();
  // .catch(err => console.log(err));
 
 
-const PORT = 3000;
 
-mongoose.connect('mongodb://127.0.0.1:27017/yourdbname', { useNewUrlParser: true, useUnifiedTopology: true })
+const dbURI = 'mongodb+srv://shaily:Shaily%4004@cluster0.5zw73pb.mongodb.net/hrapp?retryWrites=true&w=majority&appName=Cluster0';
+
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB connected');
+
+    // Start server only after DB connection
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
   })
-  .catch(err => console.log(err));
-
+  .catch(err => console.log('DB Connection Error:', err));
 
 
 
